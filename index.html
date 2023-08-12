@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/js.svg" />
+
+    <title>ToDo List Web App</title>
+
+    <!-- tailwind cdn -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- script file linking -->
+    <script defer src="./src/script.min.js"></script>
+  </head>
+  <body
+    class="bg-[url(./images/bg.jpg)] bg-fixed bg-no-repeat bg-cover bg-center min-h-screen transition-[background] duration-300 px-2"
+  >
+    <main>
+      <div class="todo-list flex flex-col m-auto max-w-[27.5rem] min-h-[20rem]">
+        <div
+          class="head-part card backdrop-blur-md saturate-[75%] rounded-b-[40%] border border-white border-x-transparent border-t-transparent w-full flex flex-col justify-center items-center gap-4"
+        >
+          <h1
+            class="text-white text-2xl tracking-widest rounded-b-[40%] mt-1 font-bold border-8 border-current border-y-transparent px-7"
+          >
+            TO DO LIST
+          </h1>
+          <div class="tool-tray pb-2 flex justify-between items-center">
+            <button
+              class="toggle-mode hover:opacity-80 transition-all duration-300 p-2 rounded-full hover:bg-violet-400"
+              title="Theme Modes"
+            >
+              <span class="sr-only">Toggle Mode</span>
+              <img src="./images/toggle-mode.svg" alt="" />
+            </button>
+            <button
+              class="add-task hover:opacity-80 transition-all duration-300 p-2 rounded-full hover:bg-violet-400"
+              title="Add tasks"
+            >
+              <span class="sr-only">Add tasks</span>
+              <img src="./images/add-task.svg" alt="" />
+            </button>
+  
+            <a
+              href="https://github.com/NehalSahu8055"
+              class="github delete hover:opacity-80 transition-all duration-300 p-2 rounded-full hover:bg-violet-400"
+              title="Github"
+              target="_blank"
+            >
+              <img src="./images/github.svg" alt="" />
+            </a>
+          </div>
+        </div>
+        <div
+          class="task-menu mt-1 text-white mb-3 flex items-center justify-between item saturate-[80%] rounded-lg backdrop-blur-xl transition-opacity duration-500 overflow-hidden"
+        >
+          <button
+            class="tasks opacity-80 border-b-2 border-b-transparent border-b-white py-4 flex-1 transition-[border] duration-300"
+          >
+            Tasks
+          </button>
+          <button
+            class="c-tasks opacity-80 border-b-2 border-b-transparent py-4 flex-1 transition-[border] duration-300"
+          >
+            Completed Tasks
+          </button>
+        </div>
+  
+        <div class="inbox overflow-hidden flex flex-col gap-[2px]">
+          <div
+            class="item saturate-[90%] flex items-center rounded-lg border-b border-b-[#f1f1f1] backdrop-blur-xl transition-opacity duration-500"
+          >
+            <input class="m-5" type="checkbox" />
+            <div
+              class="px-3 text-white flex-1 transition-[background] text-lg font-extralight border-l border-l-[#d1e2ff]"
+            >
+              <form class="form-input flex items-center relative">
+                <input
+                  class="bg-transparent flex basis-[20rem] text-white focus:outline-none placeholder-[#FDE5EC]"
+                  type="text"
+                  placeholder="Add a note here"
+                />
+                <button
+                  type="submit"
+                  class="absolute right-0 rounded-r-sm transition-all duration-300 hover:opacity-80" aria-label="Submit"
+                >
+                  <img src="./images/done.svg" />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div
+          class="completed-tasks hidden z-50 overflow-hidden flex flex-col gap-[2px]"
+        ></div>
+      </div>
+    </main>
+  </body>
+</html>
