@@ -7,7 +7,6 @@ const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]'),
   completedTasksButton = document.querySelector(".c-tasks");
 
 let totalTools = tools.length;
-let countNotes = 0;
 
 // Event Elegation handler
 const addGlobalEventListener = (type, selector, callback) => {
@@ -33,8 +32,7 @@ const modeChange = () => {
   // console.log(bodyClass);
 };
 const addTasks = () => {
-  if (countNotes != 4) {
-    inbox.innerHTML += `<div
+  inbox.innerHTML += `<div
     class="item saturate-[90%] flex items-center rounded-lg border-b border-b-[#f1f1f1] backdrop-blur-xl transition-opacity duration-500"
   >
     <input class="m-5" type="checkbox" />
@@ -56,10 +54,6 @@ const addTasks = () => {
       </form>
     </div>
   </div>`;
-  } else {
-    alert(`You can add max of ${++countNotes}  notes...`);
-  }
-  countNotes++;
 };
 const allDoneTasks = (e) => {
   document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
