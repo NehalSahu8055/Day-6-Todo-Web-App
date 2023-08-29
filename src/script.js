@@ -6,6 +6,8 @@ const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]'),
   tasks = document.querySelector(".tasks"),
   completedTasksButton = document.querySelector(".c-tasks");
 
+
+
 let totalTools = tools.length;
 
 // Event Elegation handler
@@ -21,16 +23,15 @@ const modeChange = () => {
 
   bodyClass.contains("bg-[url(./images/bg.jpg)]")
     ? bodyClass.replace(
-        "bg-[url(./images/bg.jpg)]",
-        "bg-[url(./images/bg-dark.jpg)]"
-      )
+      "bg-[url(./images/bg.jpg)]",
+      "bg-[url(./images/bg-dark.jpg)]"
+    )
     : bodyClass.replace(
-        "bg-[url(./images/bg-dark.jpg)]",
-        "bg-[url(./images/bg.jpg)]"
-      );
-
-  // console.log(bodyClass);
+      "bg-[url(./images/bg-dark.jpg)]",
+      "bg-[url(./images/bg.jpg)]"
+    );
 };
+
 const addTasks = () => {
   inbox.innerHTML += `<div
     class="item saturate-[90%] flex items-center rounded-lg border-b border-b-[#f1f1f1] backdrop-blur-xl transition-opacity duration-500"
@@ -47,8 +48,8 @@ const addTasks = () => {
         />
         <button
           type="submit"
-          class="absolute right-0 rounded-r-sm transition-all duration-300 hover:opacity-80"
-        >
+          class="absolute right-0 rounded-r-sm hover:bg-[#cb3192] transition-all duration-300 hover:opacity-80"
+          >
           <img src="./images/done.svg" />
         </button>
       </form>
@@ -60,11 +61,22 @@ const allDoneTasks = (e) => {
     toggleStrikeThrough(checkbox, e);
   });
 };
+
+const resetTasks = () => {
+  inbox.innerHTML = '';
+  completedTasks.innerHTML = '';
+  localStorage.clear();
+};
 // ------------------------------
+
 let getCheckedTasks = () => {
   document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
     if (checkbox.checked) {
       completedTasks.appendChild(checkbox.parentElement);
+
+      // localStorage
+      localStorage.setItem("add-tasks", inbox.innerHTML);
+      localStorage.setItem("completed-tasks", completedTasks.innerHTML);
     }
   });
 };
@@ -77,6 +89,7 @@ tasks.addEventListener("click", () => {
   tasks.classList.add("border-b-white");
   tasks.classList.add("opacity-100");
   inbox.classList.remove("hidden");
+
 });
 
 completedTasksButton.addEventListener("click", () => {
@@ -91,12 +104,30 @@ completedTasksButton.addEventListener("click", () => {
   getCheckedTasks();
 });
 
-// -------------------------------------Tools--------------------------------------
-// Dark Mode toggle tool
-tools[0].addEventListener("click", modeChange);
+// ------------------------------------- Tools Handle --------------------------------------
 
-//  Add Tasks tool
-tools[1].addEventListener("click", addTasks);
+const getTool = (i) => {
+  switch (i) {
+    case 0:
+      modeChange();
+      break;
+    case 1:
+      addTasks();
+      break;
+    case 2:
+      resetTasks();
+      break;
+
+    default:
+      break;
+  }
+}
+
+
+for (let i = 0; i < tools.length; i++) {
+  tools[i].addEventListener("click", () => getTool(i));
+}
+
 
 // ----------------------------- Main Implementations -------------------------------
 
@@ -105,6 +136,11 @@ const formCallback = (e) => {
   e.preventDefault();
   let inputNote = e.target.firstElementChild.value;
   e.target.parentElement.innerHTML = inputNote;
+
+  // localStorage
+  localStorage.setItem("add-tasks", inbox.innerHTML);
+  localStorage.setItem("completed-tasks", completedTasks.innerHTML);
+
 };
 addGlobalEventListener("submit", "form", formCallback);
 
@@ -134,6 +170,7 @@ const handleCheckCallback = (e) => {
 
   if (e.shiftKey && e.target.checked) {
     document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+
       if (checkbox === e.target || checkbox === lastChecked)
         inBetween = !inBetween;
       if (inBetween) {
@@ -146,8 +183,16 @@ const handleCheckCallback = (e) => {
       ) {
         toggleStrikeThrough(checkbox, checkbox);
       }
+
     });
   }
   lastChecked = e.target;
 };
+
+// localStorage.clear();
 addGlobalEventListener("click", 'input[type="checkbox"]', handleCheckCallback);
+
+window.onload = () => {
+  inbox.innerHTML = localStorage.getItem("add-tasks");
+  completedTasks.innerHTML = localStorage.getItem("completed-tasks");
+}
